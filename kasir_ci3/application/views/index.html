@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transaksi</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+    <h1>Transaksi</h1>
+
+    <h3>Tambah Transaksi</h3>
+    <form method="post" action="<?php echo site_url('transaction/add'); ?>">
+        <div class="mb-3">
+            <label class="form-label">Produk</label>
+            <select name="product_id" class="form-control" required>
+                <option value="">Pilih Produk</option>
+                <?php foreach ($products as $product) : ?>
+                    <option value="<?php echo $product->id; ?>">
+                        <?php echo $product->name; ?> - Rp <?php echo number_format($product->price, 0, ',', '.'); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Jumlah</label>
+            <input type="number" name="quantity" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">Tambah</button>
+    </form>
+
+    <h3 class="mt-4">Daftar Transaksi</h3>
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Nama Produk</th>
+            <th>Jumlah</th>
+            <th>Total Harga</th>
+        </tr>
+        <?php foreach ($transactions as $transaction) : ?>
+        <tr>
+            <td><?php echo $transaction->id; ?></td>
+            <td><?php echo $transaction->name; ?></td>
+            <td><?php echo $transaction->quantity; ?></td>
+            <td>Rp <?php echo number_format($transaction->quantity * $transaction->price, 0, ',', '.'); ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</body>
+</html>
